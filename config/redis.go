@@ -13,13 +13,6 @@ func ConnectRedis() *redis.Client {
 	redisHost := os.Getenv("REDIS_HOST")
 	redisPort := os.Getenv("REDIS_PORT")
 
-	if redisHost == "" {
-		redisHost = "localhost"
-	}
-	if redisPort == "" {
-		redisPort = "6379"
-	}
-
 	addr := fmt.Sprintf("%s:%s", redisHost, redisPort)
 
 	rdb := redis.NewClient(&redis.Options{

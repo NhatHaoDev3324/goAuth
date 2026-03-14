@@ -16,6 +16,12 @@ func NewRouter(db *gorm.DB, rdb *redis.Client) *gin.Engine {
 	r.Use(gin.Recovery())
 	r.Use(middleware.CORSMiddleware())
 
+	r.LoadHTMLGlob("templates/*")
+
+	r.GET("/", func(c *gin.Context) {
+		c.HTML(200, "index.html", nil)
+	})
+
 	api := r.Group("/api/v1")
 	{
 		user.RegisterRoutes(api, db, rdb)

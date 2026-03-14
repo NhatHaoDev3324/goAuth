@@ -7,20 +7,12 @@ import (
 
 	"template/internal/modules/user/model"
 
-	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 type Config struct {
 	DB *gorm.DB
-}
-
-func LoadConfig() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("Warning: .env file not found, using system environment variables")
-	}
 }
 
 func ConnectDB() *gorm.DB {
