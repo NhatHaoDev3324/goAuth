@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/NhatHaoDev3324/go-gin-gorm-postgres-template/internal/modules/user/model"
+	"github.com/NhatHaoDev3324/GoTemplate/internal/modules/user/model"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -27,11 +27,11 @@ func ConnectDB() *gorm.DB {
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Fatal("❌❌❌ Failed to connect database: ", err)
+		log.Fatal("❌ Failed to connect database: ", err)
 	}
 
 	db.AutoMigrate(&model.User{})
 
-	log.Println("✅✅✅ Connected to PostgreSQL successfully!")
+	fmt.Println("✅ Connected to PostgreSQL successfully!")
 	return db
 }

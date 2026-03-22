@@ -1,11 +1,11 @@
 package middleware
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
-	"github.com/NhatHaoDev3324/go-gin-gorm-postgres-template/utils"
+	"github.com/NhatHaoDev3324/GoTemplate/pkg/response"
+	"github.com/NhatHaoDev3324/GoTemplate/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,27 +15,27 @@ func AuthMiddleware() gin.HandlerFunc {
 
 		authHeader := ctx.GetHeader("Authorization")
 		if authHeader == "" {
-			ctx.JSON(http.StatusUnauthorized, gin.H{"message": "Token not found"})
+			response.Fail(ctx, http.StatusUnauthorized, "Token not found")
 			ctx.Abort()
 			return
 		}
 
 		parts := strings.Split(authHeader, " ")
 		if len(parts) != 2 || strings.ToLower(parts[0]) != "bearer" {
-			ctx.JSON(http.StatusUnauthorized, gin.H{"message": "Token format is invalid"})
+			response.Fail(ctx, http.StatusUnauthorized, "Token format is invalid")
 			ctx.Abort()
 			return
 		}
-		tokenString := parts[1]
 
+		tokenString := parts[1]
 		claims, err := utils.ParseAccessToken(tokenString)
 		if err != nil || claims == nil {
-			ctx.JSON(http.StatusUnauthorized, gin.H{"message": "Token is expired or invalid"})
+			response.Fail(ctx, http.StatusUnauthorized, "Token is expired or invalid")
 			ctx.Abort()
 			return
 		}
 
-		ctx.Set("userID", fmt.Sprintf("%v", claims.ID))
+		ctx.Set("userID", claims.ID)
 		ctx.Set("role", claims.Role)
 
 		ctx.Next()

@@ -12,7 +12,7 @@ jobs:
       - name: Print deploy message
         run: |
           echo "=============================="
-          echo "🚀 Deploy thành công!"
+          echo "🚀 Deploy Success!"
           echo "Branch: ${{ github.ref_name }}"
           echo "Commit: ${{ github.sha }}"
           echo "=============================="

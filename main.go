@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
-	"github.com/NhatHaoDev3324/go-gin-gorm-postgres-template/config"
-	"github.com/NhatHaoDev3324/go-gin-gorm-postgres-template/internal/router"
+	"github.com/NhatHaoDev3324/GoTemplate/config"
+	"github.com/NhatHaoDev3324/GoTemplate/internal/router"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -12,22 +12,22 @@ import (
 
 func main() {
 
-	if err := godotenv.Load(".env.local"); err != nil {
-		fmt.Println("📢📢📢  .env.local not found, fallback to .env")
-		godotenv.Load(".env")
+	if err := godotenv.Load(".env.production"); err != nil {
+		fmt.Println("📢  .env.production not found, fallback to .env.local")
+		godotenv.Load(".env.local")
 	} else {
-		fmt.Println("✅✅✅ Environment loaded from .env.local")
+		fmt.Println("✅ Environment loaded from .env.production")
 	}
 
 	db := config.ConnectDB()
-	rdb := config.ConnectRedis()
+	redis := config.ConnectRedis()
 
 	gin.SetMode(gin.ReleaseMode)
-	r := router.NewRouter(db, rdb)
+	r := router.NewRouter(db, redis)
 	r.SetTrustedProxies([]string{"nil"})
 
-	fmt.Println("🚀🚀🚀 Server is running at http://localhost:8080")
+	fmt.Println("🚀 Server is running at http://localhost:8080")
 	if err := r.Run(":8080"); err != nil {
-		fmt.Println("❌❌❌ Server failed to start:", err)
+		fmt.Println("❌ Server failed to start:", err)
 	}
 }

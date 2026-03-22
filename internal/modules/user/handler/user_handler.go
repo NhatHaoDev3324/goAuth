@@ -4,7 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/NhatHaoDev3324/go-gin-gorm-postgres-template/internal/modules/user/service"
+	"github.com/NhatHaoDev3324/GoTemplate/internal/modules/user/service"
+	"github.com/NhatHaoDev3324/GoTemplate/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )
@@ -17,48 +18,48 @@ func NewUserHandler(service service.UserService) *UserHandler {
 	return &UserHandler{service}
 }
 
-func (h *UserHandler) Register(c *gin.Context) {
+func (h *UserHandler) Register(ctx *gin.Context) {
 	var input struct {
 		Email    string `json:"email" binding:"required"`
 		Password string `json:"password" binding:"required"`
 		Name     string `json:"name"`
 	}
 
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	if err := ctx.ShouldBindJSON(&input); err != nil {
+		response.Fail(ctx, http.StatusBadRequest, "Invalid request")
 		return
 	}
 
 	if err := h.service.Register(input.Email, input.Password, input.Name); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Could not register user"})
+		response.Fail(ctx, http.StatusInternalServerError, "Could not register user")
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": "User registered successfully"})
+	response.Success(ctx, http.StatusCreated, "User registered successfully", nil)
 }
 
-func (h *UserHandler) GetUsers(c *gin.Context) {
+func (h *UserHandler) GetUsers(ctx *gin.Context) {
 	users, err := h.service.GetAllUsers()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		response.Fail(ctx, http.StatusInternalServerError, "Could not get users")
 		return
 	}
 
-	c.JSON(http.StatusOK, users)
+	response.Success(ctx, http.StatusOK, "Users fetched successfully", users)
 }
 
-func (h *UserHandler) GetUserByID(c *gin.Context) {
-	id, err := strconv.Atoi(c.Param("id"))
+func (h *UserHandler) GetUserByID(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+		response.Fail(ctx, http.StatusBadRequest, "Invalid user ID")
 		return
 	}
 
 	user, err := h.service.GetUserByID(uint(id))
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		response.Fail(ctx, http.StatusNotFound, "User not found")
 		return
 	}
 
-	c.JSON(http.StatusOK, user)
+	response.Success(ctx, http.StatusNoContent, "User fetched successfully", user)
 }

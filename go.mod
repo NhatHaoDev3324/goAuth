@@ -1,4 +1,4 @@
-module github.com/NhatHaoDev3324/go-gin-gorm-postgres-template
+module github.com/NhatHaoDev3324/GoTemplate
 
 go 1.25.5
 

@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/NhatHaoDev3324/go-gin-gorm-postgres-template/internal/modules/user/model"
-	"github.com/NhatHaoDev3324/go-gin-gorm-postgres-template/internal/modules/user/repository"
+	"github.com/NhatHaoDev3324/GoTemplate/internal/modules/user/model"
+	"github.com/NhatHaoDev3324/GoTemplate/internal/modules/user/repository"
 )
 
 type UserService interface {

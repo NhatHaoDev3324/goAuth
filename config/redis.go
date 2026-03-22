@@ -15,18 +15,18 @@ func ConnectRedis() *redis.Client {
 
 	addr := fmt.Sprintf("%s:%s", redisHost, redisPort)
 
-	rdb := redis.NewClient(&redis.Options{
+	redis := redis.NewClient(&redis.Options{
 		Addr:     addr,
 		Password: "",
 		DB:       0,
 	})
 
 	ctx := context.Background()
-	_, err := rdb.Ping(ctx).Result()
+	_, err := redis.Ping(ctx).Result()
 	if err != nil {
-		log.Fatalf("❌❌❌ Failed to connect to Redis: %v", err)
+		log.Fatalf("❌ Failed to connect to Redis: %v", err)
 	}
 
-	log.Println("✅✅✅ Connected to Redis successfully!")
-	return rdb
+	fmt.Println("✅ Connected to Redis successfully!")
+	return redis
 }
