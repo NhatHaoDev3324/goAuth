@@ -91,15 +91,46 @@ go mod tidy
 go run .
 ```
 
-## 📝 Danh sách API chính
 
-| Phương thức | Endpoint | Chức năng |
-| :--- | :--- | :--- |
-| **POST** | `/api/v1/users/register-by-email` | Đăng ký tài khoản mới & gửi OTP |
-| **POST** | `/api/v1/users/verify-otp` | Xác thực OTP để kích hoạt tài khoản |
-| **POST** | `/api/v1/users/login-by-email` | Đăng nhập bằng Email/Pass |
-| **POST** | `/api/v1/users/register-by-google` | Đăng ký/Đăng nhập bằng Google |
-| **GET** | `/api/v1/users/` | Lấy danh sách người dùng (Admin) |
+## 📝 Tài liệu API (API Documentation)
+
+Hệ thống cung cấp bộ RESTful API đầy đủ cho xác thực và quản lý người dùng. Tất cả các request/response đều sử dụng định dạng `application/json`.
+
+### 🔐 1. Xác thực & Đăng ký (Authentication)
+
+| Phương thức | Endpoint | Chức năng | Yêu cầu Auth |
+| :--- | :--- | :--- | :---: |
+| `POST` | `/api/v1/auth/register-by-email` | Đăng ký tài khoản mới & gửi OTP | ❌ |
+| `POST` | `/api/v1/auth/verify-otp` | Xác thực OTP kích hoạt tài khoản | ❌ |
+| `POST` | `/api/v1/auth/login-by-email` | Đăng nhập bằng Email & Password | ❌ |
+| `POST` | `/api/v1/auth/register-by-google` | Đăng nhập/Đăng ký qua Google OAuth2 | ❌ |
+
+### 👤 2. Quản lý Tài khoản (User Management)
+
+| Phương thức | Endpoint | Chức năng | Yêu cầu Auth |
+| :--- | :--- | :--- | :---: |
+| `GET` | `/api/v1/auth/profile` | Lấy thông tin cá nhân hiện tại | ✅ |
+| `POST` | `/api/v1/auth/forgot-password` | Yêu cầu đặt lại mật khẩu (Gửi OTP) | ❌ |
+| `POST` | `/api/v1/auth/verify-otp-forgot-password` | Xác thực OTP quên mật khẩu | ❌ |
+| `POST` | `/api/v1/auth/reset-password` | Đặt lại mật khẩu mới | ✅ |
+
+### 🛠 Chi tiết kỹ thuật (Technical Details)
+
+*   **Authentication**: Sử dụng **Bearer Token** trong Header.
+    *   Định dạng: `Authorization: Bearer <your_jwt_token>`
+*   **Cấu trúc dữ liệu yêu cầu (Request Body Examples)**:
+    *   **Đăng ký**: `{"first_name": "...", "last_name": "...", "email": "...", "password": "..."}`
+    *   **Xác thực OTP**: `{"email": "...", "otp": "..."}`
+    *   **Đăng nhập**: `{"email": "...", "password": "..."}`
+*   **Phản hồi (Standard Response)**:
+    ```json
+    {
+      "status": "success/fail",
+      "message": "Thông báo chi tiết",
+      "data": { ... },
+      "token": "..." (nếu có)
+    }
+    ```
 
 ---
 
