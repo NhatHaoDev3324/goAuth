@@ -1,6 +1,10 @@
-# goAuth - Toà diện hệ thống Xác thực và Mail Service (Gin Gonic + Go)
+# goAuth - Toàn diện hệ thống Xác thực và Mail Service (Gin Gonic + Go)
 
 **goAuth** là một dự án backend được xây dựng bằng ngôn ngữ Go, tập trung vào việc cung cấp hệ thống xác thực (Authentication) mạnh mẽ, bảo mật và dịch vụ gửi email hiệu suất cao. Dự án này tuân thủ các kiến trúc phát triển phần mềm hiện đại, có tính mở rộng cao và hiệu năng tối ưu.
+
+## 🌐 Link liên kết
+*   **Frontend Repository**: [auth-fe](https://github.com/NhatHaoDev3324/auth-fe)
+*   **Backend Repository**: [goAuth](https://github.com/NhatHaoDev3324/goAuth)
 
 ## 🚀 Tính năng nổi bật
 
@@ -96,6 +100,17 @@ go run .
 | **POST** | `/api/v1/users/login-by-email` | Đăng nhập bằng Email/Pass |
 | **POST** | `/api/v1/users/register-by-google` | Đăng ký/Đăng nhập bằng Google |
 | **GET** | `/api/v1/users/` | Lấy danh sách người dùng (Admin) |
+
+---
+
+## 🔝 Cập nhật mới nhất (Recent Updates)
+
+1.  **Hệ thống Caching thông minh**: Tối ưu hóa Redis để lưu trữ thông tin người dùng và OTP, sửa lỗi định dạng khóa (fixing UUID/ID key formatting) và cơ chế tự động làm mới cache khi cập nhật dữ liệu.
+2.  **Khắc phục lỗi mất dữ liệu profile**: Điều chỉnh logic Update trong Repository để đảm bảo các trường quan trọng (Role, Provider, Active) không bị ghi đè dữ liệu trống khi người dùng đổi mật khẩu hoặc reset password.
+3.  **Hỗ trợ Reset Password & Forgot Password**: Bổ sung endpoint và logic xử lý quên mật khẩu, gửi link/OTP xác nhận qua email một cách bảo mật.
+4.  **Tối ưu hóa Email Template**: Cập nhật file `verifyEmail.html` với thiết kế hiện đại, chuyên nghiệp, hỗ trợ responsive trên nhiều thiết bị.
+5.  **Tăng cường Bảo mật**: Bổ sung cơ chế chống Brute-force cho OTP và Rate Limiting để ngăn chặn spam email.
+6.  **Đồng bộ với Frontend**: Hoàn thiện tích hợp với dự án React/Next.js frontend, đảm bảo luồng Authentication mượt mà và bảo mật.
 
 ---
 *Dự án được phát triển bởi **NhatHaoDev3324***
