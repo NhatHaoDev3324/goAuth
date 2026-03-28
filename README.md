@@ -98,21 +98,21 @@ Hệ thống cung cấp bộ RESTful API đầy đủ cho xác thực và quản
 
 ### 🔐 1. Xác thực & Đăng ký (Authentication)
 
-| Phương thức | Endpoint | Chức năng | Yêu cầu Auth |
-| :--- | :--- | :--- | :---: |
-| `POST` | `/api/v1/auth/register-by-email` | Đăng ký tài khoản mới & gửi OTP | ❌ |
-| `POST` | `/api/v1/auth/verify-otp` | Xác thực OTP kích hoạt tài khoản | ❌ |
-| `POST` | `/api/v1/auth/login-by-email` | Đăng nhập bằng Email & Password | ❌ |
-| `POST` | `/api/v1/auth/register-by-google` | Đăng nhập/Đăng ký qua Google OAuth2 | ❌ |
+| Phương thức | Endpoint | Chức năng |
+| :--- | :--- | :--- |
+| `POST` | `/api/v1/auth/register-by-email` | Đăng ký tài khoản mới & gửi OTP |
+| `POST` | `/api/v1/auth/verify-otp` | Xác thực OTP kích hoạt tài khoản |
+| `POST` | `/api/v1/auth/login-by-email` | Đăng nhập bằng Email & Password |
+| `POST` | `/api/v1/auth/register-by-google` | Đăng nhập/Đăng ký qua Google OAuth2 |
 
 ### 👤 2. Quản lý Tài khoản (User Management)
 
-| Phương thức | Endpoint | Chức năng | Yêu cầu Auth |
-| :--- | :--- | :--- | :---: |
-| `GET` | `/api/v1/auth/profile` | Lấy thông tin cá nhân hiện tại | ✅ |
-| `POST` | `/api/v1/auth/forgot-password` | Yêu cầu đặt lại mật khẩu (Gửi OTP) | ❌ |
-| `POST` | `/api/v1/auth/verify-otp-forgot-password` | Xác thực OTP quên mật khẩu | ❌ |
-| `POST` | `/api/v1/auth/reset-password` | Đặt lại mật khẩu mới | ✅ |
+| Phương thức | Endpoint | Chức năng |
+| :--- | :--- | :--- |
+| `GET` | `/api/v1/auth/profile` | Lấy thông tin cá nhân hiện tại |
+| `POST` | `/api/v1/auth/forgot-password` | Yêu cầu đặt lại mật khẩu (Gửi OTP) |
+| `POST` | `/api/v1/auth/verify-otp-forgot-password` | Xác thực OTP quên mật khẩu |
+| `POST` | `/api/v1/auth/reset-password` | Đặt lại mật khẩu mới |
 
 ### 🛠 Chi tiết kỹ thuật (Technical Details)
 
